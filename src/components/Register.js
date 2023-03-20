@@ -7,15 +7,17 @@ import { config } from "../App";
 import Footer from "./Footer";
 import Header from "./Header";
 import "./Register.css";
+import { useHistory, Link } from "react-router-dom";
 
 const Register = () => {
   
   const { enqueueSnackbar } = useSnackbar();
-
+  const history = useHistory();
   let [userName, setuserName] = useState("");
   let [password, setpassword] = useState("");
   let [confirmPassword, setconfirmPassword] = useState("");
   let[isLoading,setLoading]=useState(false);
+  
   // TODO: CRIO_TASK_MODULE_REGISTER - Implement the register function
   /**
    * Definition for register handler
@@ -32,7 +34,7 @@ const Register = () => {
    * {
    *      "success": true,
    * }
-   * 
+   *
    * Example for failed response from backend for the API call:
    * HTTP 400
    * {
@@ -54,6 +56,7 @@ const Register = () => {
     .then((res) => {
       setLoading(false);
       enqueueSnackbar("Registered Successfully",{variant:"success"}); 
+      history.push("/login", { from: "Homepage" });
     })
     .catch((error)=> {
     setLoading(false);
@@ -69,7 +72,7 @@ const Register = () => {
 
 
 
-    }
+    };
 
 
 
@@ -176,9 +179,9 @@ const Register = () => {
           }
           <p className="secondary-action">
             Already have an account?{" "}
-             <a className="link" href="#">
+             <Link className="link" to="/login">
               Login here
-             </a>
+             </Link>
           </p>
         </Stack>
       </Box>
