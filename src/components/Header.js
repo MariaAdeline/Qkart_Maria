@@ -5,7 +5,6 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import "./Header.css";
 
-
 const Header = ({ children, hasHiddenAuthButtons }) => {
   const name = localStorage.getItem("username");
   const history=useHistory();
@@ -29,15 +28,16 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
 
   let loginout=localStorage.getItem("username")? logOutHeader:loginreg
 
-  const explore =
-        <Button
-          className="explore-button"
-          startIcon={<ArrowBackIcon />}
-          variant="text"
-          onClick={() => history.push("/")}
-        >
-          Back to explore
-        </Button>
+  const explore =<Button
+  className="explore-button"
+  startIcon={<ArrowBackIcon />}
+  variant="text"
+  onClick={() => history.push("/")}
+  >
+  Back to explore
+</Button>
+    
+        
     return (
       <Box className="header">
         <Box className="header-title">
@@ -45,6 +45,8 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
         </Box>
       {hasHiddenAuthButtons ? explore:loginout}
         
+        
+          
       </Box>
     );
 };
