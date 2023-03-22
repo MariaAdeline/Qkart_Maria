@@ -11,16 +11,16 @@ import {
 import React from "react";
 import "./ProductCard.css";
 
-const ProductCard = ({ productt, handleAddToCart }) => {
-const product=
-  {
-  "name":"Tan Leatherette Weekender Duffle",
-  "category":"Fashion",
-  "cost":150,
-  "rating":4,
-  "image":"https://crio-directus-assets.s3.ap-south-1.amazonaws.com/ff071a1c-1099-48f9-9b03-f858ccc53832.png",
-  "_id":"PmInA797xJhMIPti"
-  }
+const ProductCard = ({ product, handleAddToCart }) => {
+// const prod=
+//   {
+//   "name":"Tan Leatherette Weekender Duffle",
+//   "category":"Fashion",
+//   "cost":150,
+//   "rating":4,
+//   "image":"https://crio-directus-assets.s3.ap-south-1.amazonaws.com/ff071a1c-1099-48f9-9b03-f858ccc53832.png",
+//   "_id":"PmInA797xJhMIPti"
+//   }
   return (
     <Card className="card">
       <CardMedia component="img" image= {product.image} alt={product.name} />
@@ -28,9 +28,9 @@ const product=
           <Typography variant="h5">
             {product.name}
           </Typography>
-          <Typography variant="h5">
+          {/* <Typography variant="h5">
             {product.category}
-          </Typography>
+          </Typography> */}
           <Typography variant="h5">
             <b>${product.cost}</b>
           </Typography>

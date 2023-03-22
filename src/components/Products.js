@@ -29,7 +29,16 @@ import "./Products.css";
 
 
 const Products = () => {
-
+  let[isLoading,setLoading]=useState(false);
+  let[products, setProducts] = useState([]);
+  let[valid,setValid]=useState(true);
+  let [debounceTimeout,setdebounceTimeout]=useState(0);
+  // let prod=products.map((product) => (
+  //   <Grid item xs={6} md={3} className="product-grid" key={product._id}>
+  //     <ProductCard
+  //       product={product}
+  //     />
+  //   </Grid>))
   // TODO: CRIO_TASK_MODULE_PRODUCTS - Fetch products data and store it
   /**
    * Make API call to get the products list and store it to display the products
@@ -68,8 +77,23 @@ const Products = () => {
    * }
    */
   const performAPICall = async () => {
-    const response = await axios.get('')
-  };
+    try{
+    setLoading(true)
+    const response = await axios.get(`${config.endpoint}/products`)
+    const data = response.data;
+    setProducts(data)
+    // console.log(data)
+    setLoading(false)
+    }
+    catch(error){
+      setLoading(false)
+      console.log(error)
+    }
+    }
+  useEffect(()=>
+  {
+    performAPICall();
+  },[])
 
   // TODO: CRIO_TASK_MODULE_PRODUCTS - Implement search logic
   /**
@@ -86,6 +110,17 @@ const Products = () => {
    *
    */
   const performSearch = async (text) => {
+    try {
+      const response = await axios.get(`${config.endpoint}/products/search?value=${text}`);
+      const data = response.data;
+      setProducts(data);
+      setValid(true);
+    }
+    catch (error) {
+      console.log(error)
+      setProducts([])
+      setValid(false);
+    }
   };
 
   // TODO: CRIO_TASK_MODULE_PRODUCTS - Optimise API calls with debounce search implementation
@@ -101,25 +136,45 @@ const Products = () => {
    *
    */
   const debounceSearch = (event, debounceTimeout) => {
-  };
+    let search = event.target.value;
+    // setSearchKey(search);
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout);
+    }
+    let timeOut = setTimeout(() => {
+      performSearch(search);
+    }, 500); 
+    setdebounceTimeout(timeOut);
+    };
 
-
-
-
-
-
+    // const handleInputChange = (e) => {debounceSearch(e, debounceTimeout);}
 
   return (
     <div>
-      <Header>
-
-      </Header>
+      <Header children ={
+      <TextField className="search-desktop" size="small"
+                       InputProps={{className: "search",endAdornment: (
+                                <InputAdornment position="end">
+                                   <Search color="primary" />
+                                </InputAdornment>
+                                 ),
+                                  }}
+            placeholder="Search for items/categories"
+            name="search"
+            onChange={(event)=> debounceSearch(event,debounceTimeout)}
+            
+          />
+        
+        }/>
+        
+      
 
         {/* TODO: CRIO_TASK_MODULE_PRODUCTS - Display search bar in the header for Products page */}
 
       
 
       {/* Search view for mobiles */}
+      
       <TextField
         className="search-mobile"
         size="small"
@@ -133,21 +188,47 @@ const Products = () => {
         }}
         placeholder="Search for items/categories"
         name="search"
+        onChange={(event)=> debounceSearch(event,debounceTimeout)}
       />
        <Grid container>
          <Grid item className="product-grid">
            <Box className="hero">
              <p className="hero-heading">
-               India’s <span className="hero-highlight">FASTEST DELIVERY</span>{" "}
+               India's <span className="hero-highlight">FASTEST DELIVERY</span>{" "}
                to your door step
              </p>
            </Box>
-         </Grid>
+           
+            { isLoading?
+            (<Box className='loading'>
+            <CircularProgress />
+            <p>Loading Products...</p>
+            </Box> ): 
+            valid?
+            <Grid container spacing={2} px="1rem" my="1rem">
+            {products.map((product) => (
+             <Grid item xs={6} md={3} className="product-grid" key={product._id}>
+               <ProductCard
+                 product={product}
+               />
+             </Grid>))} 
+             </Grid>:
+             <Box className="loading">
+              <SentimentDissatisfied />
+              <p>No products found</p>
+            </Box>}
+            
+            
+
+                
+            
        </Grid>
-       <ProductCard/>
+           
+       </Grid>
       <Footer />
     </div>
   );
-};
+  };
+
 
 export default Products;
