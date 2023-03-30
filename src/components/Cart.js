@@ -318,7 +318,7 @@ return (
                       >
                             {isReadOnly ? 
                               
-                              (<ItemQuantity
+                            (<ItemQuantity
                             isReadOnly  
                             value = {item.qty}
                             handleAdd = {() => (handleAdd(item._id, item.qty))}
@@ -326,7 +326,7 @@ return (
                             />) : 
                             
                             (
-                              <ItemQuantity value = {item.qty}
+                            <ItemQuantity value = {item.qty}
                             handleAdd = {() => (handleAdd(item._id, item.qty))}
                             handleDelete = {() => (handleDelete(item._id, item.qty))}
                             />
@@ -358,7 +358,10 @@ return (
                 </Box>
           </Box>
   
-          {isReadOnly ? (<></>):(<Box display="flex" justifyContent="flex-end" className="cart-footer">
+          {isReadOnly ? 
+          (<></>)
+          :
+          (<Box display="flex" justifyContent="flex-end" className="cart-footer">
             <Button
               color="primary"
               variant="contained"
@@ -426,7 +429,6 @@ return (
   
             <Box
               color="#3C3C3C"
-             
               fontSize="1rem"
               alignSelf="center"
               data-testid="cart-total"
