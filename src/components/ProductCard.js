@@ -12,6 +12,9 @@ import React from "react";
 import "./ProductCard.css";
 
 const ProductCard = ({ product, handleAddToCart }) => {
+  let token = localStorage.getItem("token");
+
+
 // const prod=
 //   {
 //   "name":"Tan Leatherette Weekender Duffle",
@@ -37,9 +40,10 @@ const ProductCard = ({ product, handleAddToCart }) => {
       </CardContent>
       <Rating name="read-only" value={product.rating} readOnly />
       <CardActions className="card-actions">
-        <Button variant="contained" className="card-button" fullWidth>
-         ADD TO CART
-        </Button>
+        <Button size="large" fullWidth key={product._id} variant="contained" className="card-button" onClick={() => (handleAddToCart(token, {'productId' : product._id, 'qty' : 1},product,product._id, 1, { preventDuplicate: true }))}>
+          <AddShoppingCartOutlined />
+          ADD TO CART
+          </Button>
       </CardActions>
     </Card>
 
