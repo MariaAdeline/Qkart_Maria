@@ -49,19 +49,19 @@ import "./Cart.css";
  */
 
 
-let token=localStorage.getItem('token')
+// let token=localStorage.getItem('token')
 
 export const generateCartItemsFrom = (cartData, productsData) => {
   let cartArray = []
   let index=-1;
-  // console.log("details arg");
-  // console.log(cartData);
+  console.log("details arg");
+  console.log(cartData);
   // console.log(productsData)
   if(cartData.length>0)
   {
     for (let i = 0; i < productsData.length; i++) {
       for (let j = 0; j < cartData.length; j++) {
-        if (productsData[i]._id == cartData[j]["productId"]) 
+        if (productsData[i]._id === cartData[j]["productId"]) 
         {
           
           // cartArray.push({ ...cartData[j], ...productsData[i] });
@@ -123,9 +123,10 @@ const getTotalItems = (items = []) => {
  * 
  * @param {Function} handleDelete
  *    Handler function which reduces the quantity of a product in cart by 1
- * 
- * 
- */
+ *  @param {Boolean} isReadOnly
+   *    If product quantity on cart is to be displayed as read only without the + - options to change quantity
+   * 
+   */
 const ItemQuantity = ({
   value,
   handleAdd,
@@ -170,9 +171,11 @@ const ItemQuantity = ({
  * 
  * @param {Function} handleDelete
  *    Current quantity of product in cart
- * 
- * 
- */
+ *  @param {Boolean} isReadOnly
+   *    If product quantity on cart is to be displayed as read only without the + - options to change quantity
+   * 
+   */
+
 const Cart = ({
   products,
   items = [],
@@ -197,93 +200,6 @@ const Cart = ({
       </Box>
     );
   }
-
-  
-      {/* <Box className="cart"> */}
-        {/* TODO: CRIO_TASK_MODULE_CART - Display view for each cart item with non-zero quantity */}
-        {/* <Box
-          padding="1rem"
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          {items.map((item) => (
-              <Box display="flex" alignItems="flex-start" padding="1rem" key={item.productId}>
-                <Box className="image-container">
-                  <img
-                    // Add product image
-                    src={item.image}
-                    // Add product name as alt text
-                    alt={item.name}
-                    width="100%"
-                    height="100%"
-                  />
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="space-between"
-                  height="6rem"
-                  paddingX="1rem"
-                >
-                  <div>
-                    // {/* Add product name */}
-                  //   {/* {item.name}
-                  // </div>
-                  // <Box
-                  //   display="flex"
-                  //   justifyContent="space-between"
-                  //   alignItems="center"
-                  // // > */}
-                    // {/* <ItemQuantity
-                      /**field to update quantity or a static quantity text**/
-                      // value={item.qty}
-                      // productId={item.productId} */}
-                      // // handleQuantity={handleQuantity}
-                      // // isReadOnly={isReadOnly}
-                    // />
-                    // <Box padding="0.5rem" fontWeight="700">
-                    //   ${item.cost}
-                    // </Box>
-                    // {/* <IconButton className="delete-cart-item"  color="primary" onClick={() => handleDeleteQty(item, handleQuantity)} >
-                      // <Delete />
-                    // </IconButton> */}
-//                   </Box>
-//                 </Box>
-//               </Box>))}
-//           <Box display="flex" justifyContent="space-around" alignItems="center">
-//           <Box color="#3C3C3C" alignSelf="center">
-//             Order total
-//           </Box>
-//           <Box
-//             color="#3C3C3C"
-//             fontWeight="700"
-//             fontSize="1.5rem"
-//             alignSelf="center"
-//             data-testid="cart-total"
-//           >
-//             ${getTotalCartValue(items)}
-//           </Box>
-//         </Box>
-
-//         <Box display="flex" justifyContent="flex-end" className="cart-footer">
-//           <Button
-//             color="primary"
-//             variant="contained"
-//             startIcon={<ShoppingCart />}
-//             className="checkout-btn"
-//           >
-//             Checkout
-//           </Button>
-//         </Box>
-//         </Box>
-//         </Box>
-      
-//     </>
-//   );
-// };
-
-// export default Cart
 
 return (
   <>

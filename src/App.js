@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Login from "./components/Login";
 import Products from "./components/Products";
 import Checkout from "./components/Checkout";
+import Thanks from "./components/Thanks";
 import { ThemeProvider } from "@mui/system";
 import React from 'react';
 import theme from './theme';
@@ -24,6 +25,7 @@ function App() {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/checkout" component={Checkout} />
                 <Route exact path="/" component={Products} />
+                <Route exact path="/thanks" component={Thanks} />
               {/* <Login /> */}
               </Switch>
           </ThemeProvider>

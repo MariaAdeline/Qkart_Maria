@@ -89,8 +89,9 @@ const Products = () => {
     { 
       setloggedin(true);
       let cart_data=await fetchCart(token);
-      console.log("fetch cart")
-      console.log(data_products)
+      // console.log("fetch cart")
+      // console.log(data_products)
+      // console.log(cart_data)
       let data_details = generateCartItemsFrom(cart_data, data_products);
       setDisplayAtc(data_details);
     }
@@ -536,3 +537,4 @@ else {
 
 
 export default Products;
+
